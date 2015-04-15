@@ -17,8 +17,23 @@ if (process.env.REDISTOGO_URL) {
 }
 
 app.get('/', function (req, res) {
-  client.incr("visitors") // increment visitors
-  client.get("visitors", function(err, value) {
-    res.send('Hello visitor number ' + value + '!');
-  });
+	client.get("hello" , function(err, reply){
+  	res.send('hello '+ reply);
+	});
+});
+
+// app.get('/', function (req, res) {
+//   client.incr("visitors") // increment visitors
+//   client.get("visitors", function(err, value) {
+//     res.send('Hello visitor number ' + value + '!');
+//   });
+// });
+
+var server = app.listen(process.env.REDISTOGO_URL || 9705, function () {
+
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+
 });
