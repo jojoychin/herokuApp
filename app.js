@@ -1,25 +1,23 @@
 var express = require('express');
 
 var app = express();
-var redis;
+// var redis;
 
-if (process.env.REDISTOGO_URL) {
-    // redistogo connection
-	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-	redis = require("redis").createClient(rtg.port, rtg.hostname);
+// if (process.env.REDISTOGO_URL) {
+//     // redistogo connection
+// 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+// 	redis = require("redis").createClient(rtg.port, rtg.hostname);
 
-	redis.auth(rtg.auth.split(":")[1]);
+// 	redis.auth(rtg.auth.split(":")[1]);
 
-} else {
-    redis = require("redis");
-	//our code is the client
-	var client = redis.createClient();
-}
+// } else {
+ //    redis = require("redis");
+	// //our code is the client
+	// var client = redis.createClient();
+// }
 
 app.get('/', function (req, res) {
-	client.get("hello" , function(err, reply){
-  	res.send('hello '+ reply);
-	});
+  	res.send('hello world');
 });
 
 // app.get('/', function (req, res) {
@@ -29,7 +27,7 @@ app.get('/', function (req, res) {
 //   });
 // });
 
-var server = app.listen(process.env.REDISTOGO_URL || 9705, function () {
+var server = app.listen(3000, function () {
 
   var host = server.address().address;
   var port = server.address().port;
